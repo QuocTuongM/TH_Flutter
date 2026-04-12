@@ -31,6 +31,7 @@ Thiết lập môi trường Flutter và xây dựng màn hình profile cá nhâ
 - Hiệu ứng fade-in khi mở app
 - Card thông tin sinh viên (Tên, MSSV, Email, Trường)
 - Nền tối với glow circles trang trí
+<img width="587" height="981" alt="image" src="https://github.com/user-attachments/assets/6d7ff5ee-3fa0-4a90-9c05-64dbf5d68a21" />
 
 ---
 
@@ -46,6 +47,7 @@ Thiết lập môi trường Flutter và xây dựng màn hình profile cá nhâ
 - Xử lý lỗi chia cho 0
 - Highlight phép toán đang chọn
 - Hiển thị biểu thức đầy đủ phía trên
+<img width="577" height="994" alt="image" src="https://github.com/user-attachments/assets/373cc2bc-32f8-4656-b9f5-8980076011fd" />
 
 ---
 
