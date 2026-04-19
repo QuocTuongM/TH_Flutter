@@ -12,8 +12,8 @@
 
 ```
 TH_Flutter/
-├── lap_1/          # Lab 1 - Cài đặt môi trường & App đầu tiên
-├── lap_2/          # Lab 2 - Ứng dụng máy tính đơn giản
+├── lab_1/          # Lab 1 - Cài đặt môi trường & App đầu tiên
+├── lab_2/          # Lab 2 - Ứng dụng máy tính đơn giản
 └── README.md
 ```
 
