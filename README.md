@@ -12,8 +12,8 @@
 
 ```
 TH_Flutter/
-├── lap_1/          # Lab 1 - Cài đặt môi trường & App đầu tiên
-├── lap_2/          # Lab 2 - Ứng dụng máy tính đơn giản
+├── lab_1/          # Lab 1 - Cài đặt môi trường & App đầu tiên
+├── lab_2/          # Lab 2 - Ứng dụng máy tính đơn giản
 └── README.md
 ```
 
@@ -69,12 +69,12 @@ Thiết lập môi trường Flutter và xây dựng màn hình profile cá nhâ
 git clone https://github.com/QuocTuongM/TH_Flutter.git
 
 # Chạy Lab 1
-cd TH_Flutter/lap_1
+cd TH_Flutter/lab_1
 flutter pub get
 flutter run
 
 # Chạy Lab 2
-cd TH_Flutter/lap_2
+cd TH_Flutter/lab_2
 flutter pub get
 flutter run
 ```
