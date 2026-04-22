@@ -3,7 +3,7 @@ import 'package:math_expressions/math_expressions.dart';
 import '../models/calculation_history.dart';
 import '../services/storage_service.dart';
 
-enum CalculatorMode { basic, scientific }
+enum CalculatorMode { basic, scientific,  programmer }
 
 class CalculatorProvider extends ChangeNotifier {
   String _expression = '';
