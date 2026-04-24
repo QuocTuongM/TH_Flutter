@@ -355,7 +355,7 @@ class _CalculatorScreenState extends State<CalculatorScreen>
       ['(',   ')',   '7',   '8',   '9',   '-'],
       ['M-',  'π',  '4',   '5',   '6',   '+'],
       ['C',   'CE', '1',   '2',   '3',   '%'],
-      ['±',   '0',  '.',   'e',   '=',   '='],
+      ['±',   '0',  '.',   'e',   '!',   '='],
     ];
     return Column(
       children: rows.map((row) => Expanded(

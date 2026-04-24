@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 import '../models/calculation_history.dart';
 import '../services/storage_service.dart';
+import '../utils/calculator_logic.dart';
 
-enum CalculatorMode { basic, scientific,  programmer }
+enum CalculatorMode { basic, scientific, programmer }
 
 class CalculatorProvider extends ChangeNotifier {
   String _expression = '';
-  String _display    = '0';
-  String _memory     = '0';
-  bool   _isDeg      = true;
-  int    _decimalPrecision = 8;
-  int    _historySize      = 50;
+  String _display = '0';
+  String _memory = '0';
+  bool _isDeg = true;
+  int _decimalPrecision = 8;
+  int _historySize = 50;
   CalculatorMode _mode = CalculatorMode.basic;
   List<CalculationHistory> _history = [];
 
-  String get display           => _display;
-  String get expression        => _expression;
-  String get memory            => _memory;
-  bool   get isDeg             => _isDeg;
-  int    get decimalPrecision  => _decimalPrecision;
-  int    get historySize       => _historySize;
-  CalculatorMode get mode      => _mode;
+  String get display => _display;
+  String get expression => _expression;
+  String get memory => _memory;
+  bool get isDeg => _isDeg;
+  int get decimalPrecision => _decimalPrecision;
+  int get historySize => _historySize;
+  CalculatorMode get mode => _mode;
   List<CalculationHistory> get history => _history;
 
   final _storage = StorageService();
@@ -31,10 +31,10 @@ class CalculatorProvider extends ChangeNotifier {
   }
 
   Future<void> _loadAll() async {
-    _history          = await _storage.loadHistory();
-    _isDeg            = await _storage.loadBool('isDeg') ?? true;
+    _history = await _storage.loadHistory();
+    _isDeg = await _storage.loadBool('isDeg') ?? true;
     _decimalPrecision = await _storage.loadInt('decimalPrecision') ?? 8;
-    _historySize      = await _storage.loadInt('historySize') ?? 50;
+    _historySize = await _storage.loadInt('historySize') ?? 50;
     notifyListeners();
   }
 
@@ -63,14 +63,30 @@ class CalculatorProvider extends ChangeNotifier {
 
   void onButton(String value) {
     switch (value) {
-      case 'C':  _clear();       break;
-      case 'CE': _clearEnd();    break;
-      case '=':  _calculate();   break;
-      case 'M+': _memAdd();      break;
-      case 'M-': _memSub();      break;
-      case 'MR': _memRecall();   break;
-      case 'MC': _memClear();    break;
-      default:   _append(value); break;
+      case 'C':
+        _clear();
+        break;
+      case 'CE':
+        _clearEnd();
+        break;
+      case '=':
+        _calculate();
+        break;
+      case 'M+':
+        _memAdd();
+        break;
+      case 'M-':
+        _memSub();
+        break;
+      case 'MR':
+        _memRecall();
+        break;
+      case 'MC':
+        _memClear();
+        break;
+      default:
+        _append(value);
+        break;
     }
     notifyListeners();
   }
@@ -92,12 +108,15 @@ class CalculatorProvider extends ChangeNotifier {
       'sin': 'sin(',
       'cos': 'cos(',
       'tan': 'tan(',
-      'ln':  'ln(',
+      'asin': 'asin(',
+      'acos': 'acos(',
+      'atan': 'atan(',
+      'ln': 'ln(',
       'log': 'log(',
-      '√':   'sqrt(',
-      'x²':  '^2',
-      'π':   'pi',
-      'e':   'e',
+      '√': 'sqrt(',
+      'x²': '^2',
+      'π': 'pi',
+      'e': 'e',
     };
 
     if (value == '±') {
@@ -112,35 +131,21 @@ class CalculatorProvider extends ChangeNotifier {
 
     final mapped = sciMap[value] ?? value;
 
-    if (_expression == '0' || (_display == '0' && !['(', ')'].contains(mapped))) {
+    if (_expression == '0') {
       _expression = mapped;
     } else {
       _expression += mapped;
     }
+
     _display = _expression;
   }
 
   void _calculate() {
     if (_expression.isEmpty || _expression == '0') return;
+
     try {
-      String expr = _expression
-          .replaceAll('×', '*')
-          .replaceAll('÷', '/')
-          .replaceAll('π', 'pi');
+      final result = CalculatorLogic.evaluate(_expression, _isDeg);
 
-      if (_isDeg) {
-        expr = expr
-            .replaceAll('sin(', 'sin(pi/180*')
-            .replaceAll('cos(', 'cos(pi/180*')
-            .replaceAll('tan(', 'tan(pi/180*');
-      }
-
-      final parser = GrammarParser();
-      final exp    = parser.parse(expr);
-      final ctx    = ContextModel();
-      final result = exp.evaluate(EvaluationType.REAL, ctx) as double;
-
-      // Dùng decimalPrecision từ settings
       String resultStr;
       if (result == result.truncateToDouble()) {
         resultStr = result.toInt().toString();
@@ -151,22 +156,25 @@ class CalculatorProvider extends ChangeNotifier {
             .replaceAll(RegExp(r'\.$'), '');
       }
 
-      _history.insert(0, CalculationHistory(
-        expression: _expression,
-        result: resultStr,
-        timestamp: DateTime.now(),
-      ));
+      _history.insert(
+        0,
+        CalculationHistory(
+          expression: _expression,
+          result: resultStr,
+          timestamp: DateTime.now(),
+        ),
+      );
 
-      // Giới hạn theo historySize
       if (_history.length > _historySize) {
         _history = _history.sublist(0, _historySize);
       }
+
       _storage.saveHistory(_history);
 
-      _display    = resultStr;
+      _display = resultStr;
       _expression = resultStr;
     } catch (_) {
-      _display    = 'Error';
+      _display = 'Error';
       _expression = '';
     }
   }
@@ -185,7 +193,7 @@ class CalculatorProvider extends ChangeNotifier {
 
   void _memRecall() {
     _expression = _memory;
-    _display    = _memory;
+    _display = _memory;
   }
 
   void _memClear() {
@@ -194,7 +202,7 @@ class CalculatorProvider extends ChangeNotifier {
 
   void useHistory(CalculationHistory h) {
     _expression = h.result;
-    _display    = h.result;
+    _display = h.result;
     notifyListeners();
   }
 
