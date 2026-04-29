@@ -10,11 +10,17 @@
 - Nút Thử lại để reset về trạng thái ban đầu
 
 ## Hình ảnh
+
 ![Trạng thái ban đầu]
+
 ![alt text](image.png)
+
 ![Đang loading]
+
 ![alt text](image-1.png)
+
 ![Load thành công]
+
 ![alt text](image-2.png)
 
 ## Cách chạy
