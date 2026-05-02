@@ -21,8 +21,11 @@ Mỗi item gồm: container bo góc + icon + label text.
 
 ## Hình ảnh
 ![Fixed Column Grid]
+
 ![alt text](image.png)
+
 ![Responsive Grid]
+
 ![alt text](image-1.png)
 
 ## Cách chạy

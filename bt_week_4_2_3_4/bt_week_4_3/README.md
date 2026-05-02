@@ -12,9 +12,13 @@
 - Xử lý trường hợp chưa có dữ liệu
 
 ## Hình ảnh
+
 ![Nhập thông tin]
+
 ![alt text](image.png)
+
 ![Hiển thị dữ liệu đã lưu]
+
 ![alt text](image-1.png)
 
 ## Cách chạy

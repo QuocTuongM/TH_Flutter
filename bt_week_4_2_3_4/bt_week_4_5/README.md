@@ -19,14 +19,23 @@
 - Worker thoát gracefully bằng `Isolate.exit()`
 
 ## Hình ảnh
-![Challenge 1 - Nhập số]
+
+**![Challenge 1 - Nhập số]**
+
 ![alt text](image.png)
+
 ![Challenge 1 - Kết quả]
+
 ![alt text](image-1.png)
-![Challenge 2 - Đang chạy]
+
+**![Challenge 2 - Đang chạy]**
+
 ![alt text](image-2.png)
+
 ![Challenge 2 - Đã dừng]
+
 ![alt text](image-3.png)
+
 ## Cách chạy
 ```bash
 flutter pub get
