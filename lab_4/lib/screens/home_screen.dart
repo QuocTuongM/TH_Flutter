@@ -88,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
         WeatherIcons.getGradient(weather.mainCondition, isNight: isNight);
 
     return Container(
-      // ✅ Bọc toàn bộ trong gradient
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: gradient,
@@ -100,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
-            // ── Current weather ──────────────────────────
+            // Current weather
             CurrentWeatherCard(
               weather: weather,
               isOffline: provider.isOffline,
@@ -109,19 +108,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 16),
 
-            // ── Hourly forecast ──────────────────────────
+            // Hourly forecast 
             if (provider.hourly.isNotEmpty)
               HourlyForecastList(forecasts: provider.hourly),
 
             const SizedBox(height: 16),
 
-            // ── Daily forecast ───────────────────────────
+            // Daily forecast 
             if (provider.forecast.isNotEmpty)
               DailyForecastCard(forecasts: provider.forecast),
 
             const SizedBox(height: 16),
 
-            // ── Weather details ──────────────────────────
+            // Weather details
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -145,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  // ✅ Dùng Column + Row thay GridView
+                  //  Dùng Column + Row
                   Column(
                     children: [
                       Row(
@@ -223,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 16),
 
-            // ── Action buttons ───────────────────────────
+            // Action buttons 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -257,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 12),
 
-            // ── Favorite button ──────────────────────────
+            // Favorite button 
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
               child: GestureDetector(

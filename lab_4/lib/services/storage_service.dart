@@ -11,7 +11,7 @@ class StorageService {
   static const String _windUnitKey     = 'wind_unit';
   static const String _timeFormatKey   = 'time_format';
 
-  // ── Weather cache ─────────────────────────────────────
+  // Weather cache 
   Future<void> saveWeatherData(WeatherModel weather) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_weatherKey, jsonEncode(weather.toJson()));
@@ -43,7 +43,7 @@ class StorageService {
     return DateTime.fromMillisecondsSinceEpoch(lastUpdate);
   }
 
-  // ── Favorite cities ───────────────────────────────────
+  // Favorite cities
   Future<void> saveFavoriteCities(List<String> cities) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_favCitiesKey, cities);
@@ -54,7 +54,7 @@ class StorageService {
     return prefs.getStringList(_favCitiesKey) ?? [];
   }
 
-  // ── Recent searches ───────────────────────────────────
+  // Recent searches
   Future<void> saveRecentSearches(List<String> searches) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_recentSearchKey, searches);
@@ -65,7 +65,7 @@ class StorageService {
     return prefs.getStringList(_recentSearchKey) ?? [];
   }
 
-  // ── Settings ──────────────────────────────────────────
+  // Settings
   Future<void> saveTempUnit(String unit) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tempUnitKey, unit);

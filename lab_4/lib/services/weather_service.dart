@@ -6,7 +6,7 @@ import '../models/hourly_weather_model.dart';
 import '../config/api_config.dart';
 
 class WeatherService {
-  // ── Current weather by city ───────────────────────────
+  // Current weather by city
   Future<WeatherModel> getCurrentWeatherByCity(String cityName) async {
     try {
       final url = ApiConfig.buildUrl(
@@ -27,7 +27,7 @@ class WeatherService {
     }
   }
 
-  // ── Current weather by coordinates ───────────────────
+  //Current weather by coordinates 
   Future<WeatherModel> getCurrentWeatherByCoordinates(
       double lat, double lon) async {
     try {
@@ -47,7 +47,7 @@ class WeatherService {
     }
   }
 
-  // ── 5-day forecast by city ────────────────────────────
+  // 5-day forecast by city 
   Future<List<ForecastModel>> getForecast(String cityName) async {
     try {
       final url = ApiConfig.buildUrl(
@@ -68,7 +68,7 @@ class WeatherService {
     }
   }
 
-  // ── Hourly forecast ───────────────────────────────────
+  // Hourly forecast
   Future<List<HourlyWeatherModel>> getHourlyForecast(
       String cityName) async {
     try {
@@ -92,7 +92,7 @@ class WeatherService {
     }
   }
 
-  // ── Forecast by coordinates ───────────────────────────
+  // Forecast by coordinates
   Future<List<ForecastModel>> getForecastByCoordinates(
       double lat, double lon) async {
     try {

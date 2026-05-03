@@ -50,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // ── Search bar ────────────────────────────────
+              // Search bar 
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Row(
@@ -128,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   children: [
-                    // ── Favorite cities ───────────────────────
+                    // Favorite cities
                     if (provider.favoriteCities.isNotEmpty) ...[
                       _sectionHeader(
                           '⭐ Favorite Cities', provider, showClear: false),
@@ -138,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       const SizedBox(height: 16),
                     ],
 
-                    // ── Recent searches ───────────────────────
+                    // Recent searches 
                     if (provider.recentSearches.isNotEmpty) ...[
                       _sectionHeader('🕐 Recent Searches', provider,
                           showClear: true),
@@ -146,7 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           _cityTile(city, provider)),
                     ],
 
-                    // ── No data ───────────────────────────────
+                    //  No data
                     if (provider.favoriteCities.isEmpty &&
                         provider.recentSearches.isEmpty)
                       Center(

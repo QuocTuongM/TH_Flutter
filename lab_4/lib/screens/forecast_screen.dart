@@ -34,7 +34,7 @@ class ForecastScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              // ── AppBar ────────────────────────────────────
+              // AppBar 
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Row(
@@ -77,7 +77,7 @@ class ForecastScreen extends StatelessWidget {
                 ),
               ),
 
-              // ── Forecast list ─────────────────────────────
+              // Forecast list 
               Expanded(
                 child: forecast.isEmpty
                     ? Center(

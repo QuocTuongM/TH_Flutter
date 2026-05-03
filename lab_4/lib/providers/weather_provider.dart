@@ -51,7 +51,7 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ── Fetch by city ─────────────────────────────────────
+  // Fetch by city 
   Future<void> fetchWeatherByCity(String cityName) async {
     _state = WeatherState.loading;
     notifyListeners();
@@ -88,7 +88,7 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ── Fetch by location ─────────────────────────────────
+  // Fetch by location 
   Future<void> fetchWeatherByLocation() async {
     _state = WeatherState.loading;
     notifyListeners();
@@ -102,7 +102,6 @@ class WeatherProvider extends ChangeNotifier {
         return;
       }
 
-      // Thử lấy location, nếu lỗi dùng HCM mặc định
       try {
         final position = await _locationService.getCurrentLocation();
         _currentWeather = await _weatherService.getCurrentWeatherByCoordinates(
@@ -110,7 +109,6 @@ class WeatherProvider extends ChangeNotifier {
           position.longitude,
         );
       } catch (_) {
-        // Fallback: Ho Chi Minh City
         _currentWeather = await _weatherService.getCurrentWeatherByCity(
           'Ho Chi Minh City',
         );
@@ -134,7 +132,7 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ── Load cache ────────────────────────────────────────
+  // Load cache 
   Future<void> _loadCachedWeather() async {
     final cached = await _storageService.getCachedWeather();
     if (cached != null) {
@@ -145,7 +143,7 @@ class WeatherProvider extends ChangeNotifier {
     }
   }
 
-  // ── Refresh ───────────────────────────────────────────
+  //Refresh
   Future<void> refreshWeather() async {
     if (_currentWeather != null) {
       await fetchWeatherByCity(_currentWeather!.cityName);
@@ -154,7 +152,7 @@ class WeatherProvider extends ChangeNotifier {
     }
   }
 
-  // ── Favorite cities ───────────────────────────────────
+  // Favorite cities
   Future<void> addFavoriteCity(String city) async {
     if (_favoriteCities.length >= 5) return;
     if (!_favoriteCities.contains(city)) {
@@ -172,7 +170,7 @@ class WeatherProvider extends ChangeNotifier {
 
   bool isFavorite(String city) => _favoriteCities.contains(city);
 
-  // ── Recent searches ───────────────────────────────────
+  // Recent searches
   Future<void> _addRecentSearch(String city) async {
     _recentSearches.remove(city);
     _recentSearches.insert(0, city);

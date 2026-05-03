@@ -79,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   children: [
-                    // ── Temperature unit ─────────────────────
+                    // Temperature unit
                     _sectionHeader('🌡️ Temperature Unit'),
                     _settingsCard(
                       children: [
@@ -107,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     const SizedBox(height: 16),
 
-                    // ── Wind speed unit ───────────────────────
+                    // Wind speed unit 
                     _sectionHeader('💨 Wind Speed Unit'),
                     _settingsCard(
                       children: [
@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     const SizedBox(height: 16),
 
-                    // ── Time format ───────────────────────────
+                    //Time format
                     _sectionHeader('🕐 Time Format'),
                     _settingsCard(
                       children: [
@@ -173,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     const SizedBox(height: 16),
 
-                    // ── About ─────────────────────────────────
+                    // About 
                     _sectionHeader('ℹ️ About'),
                     _settingsCard(
                       children: [
