@@ -55,7 +55,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     if (title.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please enter a title!'),
+          content: Text('Vui lòng nhập tiêu đề!'),
           backgroundColor: Colors.orange,
         ),
       );
@@ -97,18 +97,18 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        title: const Text('Discard changes?'),
+        title: const Text('Hủy thay đổi?'),
         content: const Text(
-            'You have unsaved changes. Do you want to discard them?'),
+            'Bạn có thay đổi chưa lưu. Bạn có muốn hủy không?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Keep editing'),
+            child: const Text('Tiếp tục chỉnh sửa'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             child: const Text(
-              'Discard',
+              'Hủy bỏ',
               style: TextStyle(color: Colors.red),
             ),
           ),
