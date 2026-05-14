@@ -26,16 +26,16 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  String _display = '0';
-  String _equation = '';
-  double _num1 = 0;
-  double _num2 = 0;
-  String _operation = '';
-  bool _shouldResetDisplay = false;
+  String _display = '0'; // Số đang hiển thị to ở màn hình
+  String _equation = ''; // Phép tính phía trước
+  double _num1 = 0; // Số thứ nhất
+  double _num2 = 0; // Số thứ hai
+  String _operation = ''; // Phép tính đang chọn
+  bool _shouldResetDisplay = false; // Khi true → lần nhấn số tiếp theo sẽ xóa màn hình
 
   // ── Colors (sáng hơn) ─────────────────────────────────────
   static const Color bgPage     = Color(0xFF3D4660);   // nền tổng sáng hơn
-  static const Color displayBg  = Color(0xFF2D3655);   // display card
+  static const Color displayBg  = Color(0xFF2D3655);   // Vùng hiển thị số
   static const Color btnNum     = Color(0xFF4A5568);   // nút số
   static const Color btnFn      = Color(0xFF5A6A8A);   // C CE % ±
   static const Color btnOp      = Color(0xFF6B7FBD);   // + - × ÷ (xanh nổi)
