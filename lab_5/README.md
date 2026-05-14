@@ -7,6 +7,7 @@
 
 
 Trang chủ
+
 ![alt text](image.png)
 
 New Note
@@ -56,6 +57,7 @@ Chỉnh sửa thông tin đã lưu
 ---
 
 ##  Cấu trúc thư mục
+```
 lab_5/
 ├── lib/
 │   ├── models/
@@ -73,7 +75,7 @@ lab_5/
 ├── screenshots/                   # Ảnh chụp màn hình
 ├── pubspec.yaml
 └── README.md
----
+```
 
 ## 🚀 Hướng dẫn cài đặt & chạy
 
