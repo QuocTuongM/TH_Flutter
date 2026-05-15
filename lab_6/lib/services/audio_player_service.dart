@@ -32,12 +32,20 @@ class AudioPlayerService {
 
   // ── Playback controls ─────────────────────────────────
   Future<void> loadAudio(String filePath) async {
-    try {
+  try {
+    if (filePath.startsWith('assets/')) {
+      await _audioPlayer.setAsset(filePath);
+    } else if (filePath.startsWith('content://')) {
+      await _audioPlayer.setAudioSource(
+        AudioSource.uri(Uri.parse(filePath)),
+      );
+    } else {
       await _audioPlayer.setFilePath(filePath);
-    } catch (e) {
-      throw Exception('Error loading audio: $e');
     }
+  } catch (e) {
+    throw Exception('Error loading audio: $e');
   }
+}
 
   Future<void> play() async {
     await _audioPlayer.play();

@@ -1,56 +1,81 @@
-import 'package:on_audio_query/on_audio_query.dart';
-import '../models/song_model.dart' as app_models;
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_media_metadata/flutter_media_metadata.dart';
+import '../models/song_model.dart';
 
 class PlaylistService {
-  final OnAudioQuery _audioQuery = OnAudioQuery();
+  static List<SongModel> _cachedSongs = [];
 
-  Future<List<app_models.SongModel>> getAllSongs() async {
+  // Lấy cache hiện tại
+  List<SongModel> getCachedSongs() => _cachedSongs;
+
+  // Thêm nhạc mới (không xóa cache cũ)
+  Future<List<SongModel>> addSongs() async {
     try {
-      final List<SongModel> audioList = await _audioQuery.querySongs(
-        sortType: SongSortType.TITLE,
-        orderType: OrderType.ASC_OR_SMALLER,
-        uriType: UriType.EXTERNAL,
-        ignoreCase: true,
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.audio,
+        allowMultiple: true,
       );
 
-      return audioList
-          .where((audio) =>
-              audio.duration != null && (audio.duration ?? 0) > 30000)
-          .map((audio) => app_models.SongModel(
-                id: audio.id.toString(),
-                title: audio.title ?? 'Unknown Title',
-                artist: audio.artist ?? 'Unknown Artist',
-                album: audio.album,
-                filePath: audio.data,
-                duration:
-                    Duration(milliseconds: audio.duration ?? 0),
-                fileSize: audio.size,
-              ))
-          .toList();
+      if (result == null) return _cachedSongs;
+
+      for (final f in result.files) {
+        if (f.path == null) continue;
+
+        // Tránh duplicate
+        if (_cachedSongs.any((s) => s.id == f.path)) continue;
+
+        String title = f.name.replaceAll(RegExp(r'\.[^.]+$'), '');
+        String artist = 'Unknown Artist';
+        String? album;
+        Duration? duration;
+
+        try {
+          final metadata = await MetadataRetriever.fromFile(File(f.path!));
+          if (metadata.trackName != null && metadata.trackName!.isNotEmpty) {
+            title = metadata.trackName!;
+          }
+          if (metadata.authorName != null && metadata.authorName!.isNotEmpty) {
+            artist = metadata.authorName!;
+          }
+          album = metadata.albumName;
+          if (metadata.trackDuration != null) {
+            duration = Duration(milliseconds: metadata.trackDuration!);
+          }
+        } catch (_) {}
+
+        _cachedSongs.add(SongModel(
+          id: f.path!,
+          title: title,
+          artist: artist,
+          album: album,
+          filePath: f.path!,
+          duration: duration,
+        ));
+      }
+
+      return _cachedSongs;
     } catch (e) {
       throw Exception('Error loading songs: $e');
     }
   }
 
-  Future<List<app_models.SongModel>> searchSongs(String query) async {
-    final allSongs = await getAllSongs();
-    final lowerQuery = query.toLowerCase();
-    return allSongs.where((song) {
-      return song.title.toLowerCase().contains(lowerQuery) ||
-          song.artist.toLowerCase().contains(lowerQuery) ||
-          (song.album?.toLowerCase().contains(lowerQuery) ?? false);
-    }).toList();
+  Future<List<SongModel>> getAllSongs() async => _cachedSongs;
+
+  Future<List<SongModel>> searchSongs(String query) async {
+    final q = query.toLowerCase();
+    return _cachedSongs.where((s) =>
+      s.title.toLowerCase().contains(q) ||
+      s.artist.toLowerCase().contains(q) ||
+      (s.album?.toLowerCase().contains(q) ?? false)
+    ).toList();
   }
 
-  Future<List<app_models.SongModel>> getSongsByArtist(
-      String artist) async {
-    final allSongs = await getAllSongs();
-    return allSongs.where((s) => s.artist == artist).toList();
-  }
+  Future<List<SongModel>> getSongsByArtist(String artist) async =>
+      _cachedSongs.where((s) => s.artist == artist).toList();
 
-  Future<List<app_models.SongModel>> getSongsByAlbum(
-      String album) async {
-    final allSongs = await getAllSongs();
-    return allSongs.where((s) => s.album == album).toList();
-  }
+  Future<List<SongModel>> getSongsByAlbum(String album) async =>
+      _cachedSongs.where((s) => s.album == album).toList();
+
+  void clearCache() => _cachedSongs = [];
 }

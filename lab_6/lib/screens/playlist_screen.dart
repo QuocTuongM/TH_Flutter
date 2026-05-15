@@ -5,7 +5,6 @@ import '../providers/playlist_provider.dart';
 import '../models/playlist_model.dart';
 import '../utils/constants.dart';
 import '../widgets/playlist_card.dart';
-import '../widgets/mini_player.dart';
 import 'now_playing_screen.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -104,16 +103,6 @@ class PlaylistScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
-
-            // Mini player
-            Consumer<AudioProvider>(
-              builder: (_, provider, __) {
-                if (provider.currentSong == null) {
-                  return const SizedBox.shrink();
-                }
-                return const MiniPlayer();
-              },
             ),
           ],
         ),
